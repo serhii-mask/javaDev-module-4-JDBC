@@ -1,5 +1,5 @@
--- Створюємо таблиці
-CREATE TABLE worker (
+-- Create tables
+CREATE TABLE IF NOT EXISTS worker (
 	id IDENTITY PRIMARY KEY,
 	name VARCHAR(1000) NOT NULL CHECK (LENGTH(name) BETWEEN 2 AND 1000),
 	birthday DATE CHECK (YEAR(birthday) > 1990),
@@ -7,12 +7,12 @@ CREATE TABLE worker (
 	salary INT CHECK (salary BETWEEN 100 AND 100000)
 );
 
-CREATE TABLE client (
+CREATE TABLE IF NOT EXISTS client (
 	id IDENTITY PRIMARY KEY,
 	name VARCHAR(1000) NOT NULL CHECK (LENGTH(name) BETWEEN 2 AND 1000)
 );
 
-CREATE TABLE project (
+CREATE TABLE IF NOT EXISTS project (
 	id IDENTITY PRIMARY KEY,
 	client_id INT,
 	start_date DATE,
@@ -20,7 +20,7 @@ CREATE TABLE project (
 	FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
-CREATE TABLE project_worker (
+CREATE TABLE IF NOT EXISTS project_worker (
 	project_id INT,
 	worker_id INT,
 	PRIMARY KEY (project_id, worker_id),
