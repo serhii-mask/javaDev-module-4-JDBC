@@ -2,19 +2,14 @@ package org.example.company;
 
 import org.example.database.Database;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import static org.example.utils.ReaderFiles.readSqlFile;
 
 public class DatabaseInitService {
 
     public static void main(String[] args) {
-        try {
-            String sql = Files.readString(Path.of("./sql/init_db.sql"));
+        String path = "./sql/init_db.sql";
+        String sql = readSqlFile(path);
 
-            Database.getInstance().initDB(sql);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Database.getInstance().initDB(sql);
     }
 }

@@ -23,14 +23,8 @@ public class Database {
         return INSTANCE;
     }
 
-    public int executeUpdate(String sql) {
-        try (Statement st = connection.createStatement()) {
-            return st.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            return -1;
-        }
+    public Connection getConnection() {
+        return connection;
     }
 
     public int initDB(String sql) {
@@ -43,8 +37,14 @@ public class Database {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
+    public int executeUpdate(String sql) {
+        try (Statement st = connection.createStatement()) {
+            return st.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return -1;
+        }
     }
 
     public void close() {

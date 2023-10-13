@@ -1,4 +1,4 @@
-package org.example.elements;
+package org.example.entities;
 
 public class YoungestEldestWorkers {
     private String type;
