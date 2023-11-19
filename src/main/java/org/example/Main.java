@@ -7,8 +7,8 @@ import org.example.database.Database;
 
 public class Main {
     public static void main(String[] args) {
-        DatabaseInitService.main(args);
-        DatabasePopulateService.main(args);
+//        DatabaseInitService.main(args);
+//        DatabasePopulateService.main(args);
 
         Database database = Database.getInstance();
         DatabaseQueryService queryService = new DatabaseQueryService(database);

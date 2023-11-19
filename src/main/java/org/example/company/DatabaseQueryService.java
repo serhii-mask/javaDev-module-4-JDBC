@@ -22,10 +22,9 @@ public class DatabaseQueryService {
         String path = "./sql/find_max_salary_worker.sql";
         String sql = readSqlFile(path);
 
-        try (Statement statement = database.getConnection().createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
+        ResultSet resultSet = database.executeQuery(sql);
 
-            while (resultSet.next()) {
+        while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 int salary = resultSet.getInt("salary");
 
@@ -33,12 +32,52 @@ public class DatabaseQueryService {
 
                 result.add(worker);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return result;
     }
+
+    public List<LongestProject> findLongestProject(){
+        List<LongestProject> longestProjectList = new ArrayList<>();
+        Connection connection = Database.getInstance().getConnection();
+
+        try (ResultSet result = executeSelectSqlFile(connection, SQL_FILE_PATH)){
+            while (result.next()){
+                String clientName = result.getString("client_name");
+                int projectMonthCount = result.getInt("project_month_count");
+                LongestProject record = new LongestProject(clientName, projectMonthCount);
+                longestProjectList.add(record);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return longestProjectList;
+    }
+
+//    public List<MaxSalaryWorker> findMaxSalaryWorker() {
+//        List<MaxSalaryWorker> result = new ArrayList<>();
+//
+//        String path = "./sql/find_max_salary_worker.sql";
+//        String sql = readSqlFile(path);
+//
+//        try (Statement statement = database.getConnection().createStatement();
+//             ResultSet resultSet = statement.executeQuery(sql)) {
+//
+//            while (resultSet.next()) {
+//                String name = resultSet.getString("name");
+//                int salary = resultSet.getInt("salary");
+//
+//                MaxSalaryWorker worker = new MaxSalaryWorker(name, salary);
+//
+//                result.add(worker);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return result;
+//    }
 
     public List<MaxProjectCountClient> findMaxProjectsClient() {
         List<MaxProjectCountClient> result = new ArrayList<>();

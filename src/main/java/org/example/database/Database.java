@@ -47,6 +47,25 @@ public class Database {
         }
     }
 
+    public ResultSet executeQueryOne(Connection connection, String sql) {
+        try (Statement statement = connection.createStatement()) {
+            return statement.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ResultSet executeQuery(String sql) {
+        try {
+            Statement statement = connection.createStatement();
+            return statement.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void close() {
         try {
             connection.close();
